@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Diphylleia&family=Dongle:wght@300&family=Gamja+Flower&family=Nanum+Pen+Script&family=Poor+Story&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="logo">
+    <a href="/">logo</a>
+    </div>
+    <div class="content-wrap">
+        <div class="side-menu">
+            <!--            3. 템플릿에서 게시물 목록 출력-->
+            <ul>
+                <li th:each="post : ${postList}">
+                    <a th:href="@{|/detail/${post.id}|}" th:text="${post.title == '' ? '제목 없음' : post.title}"
+                       th:class="${post.id == targetPost.id}? 'highlight' : '' "  ></a>
+
+                </li>
+            </ul>
+            <div>
+                <form action="/write" method="post">
+                    <input type="submit" value="추가">
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <form>
+                <div>
+                    <input type="hidden" name="id" th:value="${targetPost.id}">
+                </div>
+                <div class="content-title">
+                    <input type="text" name="title" th:value="${targetPost.title}" style="text-align:center">
+                </div>
+                <div>
+                    <textarea name="content" cols="50" rows="30" th:text="${targetPost.content}"></textarea>
+                </div>
+                <div>
+                    <button type="button" onclick="doUpdate(this.form)">수정</button>
+                    <button type="button" onclick="doDelete(this.form)">삭제</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+  <script>
+    function doUpdate(form){
+       if(confirm("정말 수정하시겠습니까?") == true){
+       form.action = "/update";
+       form.method = "post";
+       form.submit();
+      }
+    }
+
+    function doDelete(form){
+     if(confirm("정말 삭제하시겠습니까") == true){
+       form.action = "/delete";
+       form.method = "post";
+       form.submit();
+      }
+    }
+
+    $(window).scroll(function () {
+	var scrollValue = $(document).scrollTop();
+    console.log(scrollValue);
+    });
+
+
+  </script>
+
+</body>
+</html>
