@@ -1,5 +1,7 @@
-package com.korea.test;
+package com.korea.test.post;
 
+import com.korea.test.maincategory.MainCategory;
+import com.korea.test.maincategory.MainCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +11,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-public class TestController {
+public class PostController {
 
   @Autowired
   private PostRepository postRepository;
-
-
   @RequestMapping("/test")
   @ResponseBody public String test() {
     return "test";

@@ -1,5 +1,7 @@
 package com.korea.test;
 
+import com.korea.test.post.Post;
+import com.korea.test.post.PostRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
