@@ -11,10 +11,19 @@ body {
     font-family : 'SOYOMapleBoldTTF',cursive;
 }
 
-ul, li{
+span{
+    margin-left : 5px;
+    cursor:default;
+}
+
+ul{
     margin : 0;
     padding : 3px;
-    font-family : 'SOYOMapleBoldTTF',cursive;
+    list-style : none;
+}
+
+li{
+    margin-bottom : 1px;
     list-style : none;
 }
 
@@ -24,14 +33,14 @@ a {
 }
 
 .wrap {
-    background : darkgreen;
+    // background : darkgreen;
 }
 
 .logo {
    // background : #0404B4;
-    background-image:url("https://cdn.imweb.me/upload/S202207202685e30f16e24/8b48c67f8cdf6.jpeg");
+    background-image:url("https://cdn.pixabay.com/photo/2016/03/10/01/28/orange-1247700_1280.jpg");
     height : 500px;
-    color : white;
+    color : black;
     height : 50px;
     font-size : 30px;
     font-weight : bold;
@@ -39,28 +48,57 @@ a {
 }
 
 .content-wrap {
-    background : green;
     display : flex;
+    border-style : double;
+    // border-color: #6464CD #8282EB #A390EE #8F7CEE;
 }
 
 .side-menu {
-    background:#CECEF6;
-    width:20%;
-    height:500px;
     text-align : center;
     overflow : auto;
     font-size : 15px;
     font-weight : bold;
+    overflow : auto;
+    height: 90vh;
+    width: 18vw;
 }
 
 .content {
-    background:#8181F7;
-    width:80%;
+    // background:#8181F7;
+    left : 10px;
+    width: 82vw;
+    overflow : hidden ;
+    height: 90vh;
+    overflow:hidden;
 }
 
-input, textarea{
+textarea{
     margin-left : 10px;
     border-radius : 10px;
+}
+
+input {
+      background-color : transparent;
+      border : none;
+      font-size : 12px;
+      width : 85px;
+      margin-left : 10px;
+      border-radius : 10px;
+}
+
+.subtitle{
+   font-weight : bold;
+   background : white;
+   text-align : center;
+}
+
+.subtitle2{
+   font-weight : bold;
+   background : #bebebe;
+   color : black;
+   cursor:pointer;
+   margin-left : -2px;
+   width : 50px;
 }
 
 .sublist{
@@ -75,9 +113,6 @@ input, textarea{
     font-size : 10px;
 }
 
-.mainlist{
-    cursor : pointer;
-}
 
 .list{
     color : white;
@@ -89,6 +124,11 @@ input, textarea{
     font-size : 9px;
 }
 
+.subtitle{
+    width : 200px;
+    margin : 10px;
+}
+
 .subpost{
     padding : 5px;
     color : black;
@@ -97,9 +137,40 @@ input, textarea{
     flex-direction: row;
 }
 
-input {
-      background-color : transparent;
-      border : none;
-      font-size : 10px;
-      width : 85px;
+span:hover, span:focus{ animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; }
+@keyframes rainbowLink {
+   0% { color: #ff2a2a; }
+   15% { color: #ff7a2a; }
+   30% { color: #ffc52a }
+   45% { color: #43ff2a; }
+   60% { color: #2a89ff; }
+   75% { color: #202082; }
+   90% { color: #6b2aff; }
+   100% { color: #e82aff; }
+  }
+
+.card.bg-base-100.shadow-xl{
+    display:inline-flex;
+    width : 180px;
+    height : 200px;
+    margin : 5px;
+    font-size : 12px;
+}
+h2.card-title {
+    font-size : 15px;
+      z-index: 0;
+}
+
+
+.postadd{
+    position: relative;
+    top : -100%;
+    left : 80%;
+    margin : -11%;
+}
+
+button.btn.btn-primary{
+    font-size : 17px;
+    width : 120px;
+    height : 30px;
 }

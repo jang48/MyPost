@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}">
+<div layout:fragment="content-layout" class="content">
+        <li th:each = "main : ${mainCategory}">
+            <span class = "list" th:text="${main.maintitle}"></span>
+            <ul class = "sub">
+                <li th:each = "sub : ${subCategory}" th:if = "${sub.mainCategory.id == main.id}">
+                    <span th:text = "'⭐' + ${sub.subtitle}"></span>
+                    <ul class="subpost">
+                        <li th:each = "post : ${targetPost}" th:if = "${post.subCategory.id == sub.id}">
+                            <span th:text="${post.title}"></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+</div>
+</html>

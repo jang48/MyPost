@@ -1,0 +1,15 @@
+<div class="card w-96 bg-primary text-primary-content">
+    <div class="card-body">
+        <ul class="postclass" th:each="target, iterStat : ${post}">
+            <li class="post">
+                <h2  class="card-title" th:text="${target.title}"> </h2>
+                <p class="postcontent" th:text="${target.content} == '' ? '내용없음' : ${target.content}"> </p>
+                <button class="btn">상세보기</button>
+                <form th:if="${iterStat.last}" th:action="@{/category/postadd}" method="post">
+                    <input type="hidden" name="subid" th:value="${subContent.id}">
+                    <input class="postadd"  type="submit" value="+">
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

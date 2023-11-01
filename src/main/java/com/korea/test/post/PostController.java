@@ -2,11 +2,16 @@ package com.korea.test.post;
 
 import com.korea.test.maincategory.MainCategory;
 import com.korea.test.maincategory.MainCategoryRepository;
+import com.korea.test.subcategory.SubCategory;
+import com.korea.test.subcategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelExtensionsKt;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +20,12 @@ public class PostController {
 
   @Autowired
   private PostRepository postRepository;
+
+  @Autowired
+  private SubCategoryRepository subCategoryRepository;
+
+  @Autowired
+  private PostService postService;
   @RequestMapping("/test")
   @ResponseBody public String test() {
     return "test";
@@ -67,4 +78,12 @@ public class PostController {
 
     return "redirect:/";
   }
+
+  @PostMapping("/category/postadd")
+  public String postadd(@RequestParam Integer subid){
+    SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
+    this.postService.createpost(subCategory);
+    return "redirect:/category/detail/" + subid;
+  }
+
 }

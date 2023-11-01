@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns = "http://www.w3.org/1999/html">
+<head>
+    <meta charset = "UTF-8">
+    <title>Title</title>
+    <link rel = "preconnect" href = "https://fonts.googleapis.com">
+    <link href = "https://fonts.googleapis.com/css2?family=Cute+Font&family=Diphylleia&family=Dongle:wght@300&family=Gamja+Flower&family=Nanum+Pen+Script&family=Poor+Story&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href = "/main2.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <html data-theme="retro"></html>
+</head>
+<body>
+<div class = "wrap">
+    <div class = "logo">
+        <a href = "/">logo</a>
+    </div>
+    <div class = "content-wrap">
+        <div class = "side-menu">
+            <!--            3. 템플릿에서 게시물 목록 출력-->
+<!--            <ul>-->
+<!--                <li th:each = "main : ${mainCategory}">-->
+<!--                    <span class = "mainlist" th:text=" ${main.maintitle}" ></span>-->
+<!--                    <ul class = "sublist">-->
+<!--                        <li th:each = "sub : ${subCategory}"  >-->
+<!--                            <a th:href="@{|/category/detail/${sub.id}|}" th:text = "'▶ '+${sub.subtitle}" th:if = "${sub.mainCategory.id == main.id}" ></a>-->
+<!--                        </li>-->
+<!--                        <form th:action="@{|/category/subadd/${main.id}|}" method="post">-->
+<!--                            <input type="submit" value="+" style="text-align:rightt">-->
+<!--                        </form>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </ul>-->
+            <ul class="menu bg-base-200 w-56 rounded-box" >
+                <li th:each = "main : ${mainCategory}">
+                    <details open>
+                        <summary><span class = "mainlist" th:text=" ${main.maintitle}" ></span></summary>
+
+                        <ul class = "sublist">
+                            <li th:each = "sub : ${subCategory}">
+                                <a th:href="@{|/category/detail/${sub.id}|}" th:text = "'▶ '+${sub.subtitle}" th:if = "${sub.mainCategory.id == main.id}" ></a>
+                            </li>
+                            <form th:action="@{|/category/subadd/${main.id}|}" method="post">-->
+                                <input type="submit" value="+" style="text-align:rightt">
+                            </form>
+                        </ul>
+                    </details>
+                </li>
+            </ul>
+        </div>
+        <th:block layout:fragment="content-layout"> </th:block>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var isSublistExpanded = localStorage.getItem('isSublistExpanded') === 'true';
+        var slide = isSublistExpanded;
+
+        if (isSublistExpanded) {
+            $('.sublist').show();
+        } else {
+            $('.sublist').hide();
+        }
+
+        $('.mainlist').click(function() {
+            var sublist = $(this).next('.sublist');
+            if (slide) {
+                sublist.slideUp();
+            } else {
+                sublist.slideDown();
+            }
+            slide = !slide;
+            localStorage.setItem('isSublistExpanded', slide);
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

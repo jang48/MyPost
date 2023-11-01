@@ -20,7 +20,7 @@
                     <span class = "mainlist" th:text="'✨'+ ${main.maintitle}"></span>
                     <ul class = "sublist">
                         <li th:each = "sub : ${subCategory}" >
-                            <a th:href="@{|/category/detail/${sub.id}|}" th:text = "${sub.subtitle}" th:if = "${sub.mainCategory.id == main.id}"></a>
+                            <a class="minisubtitle" th:href="@{|/category/detail/${sub.id}|}" th:text = "${sub.subtitle}" th:if = "${sub.mainCategory.id == main.id}"></a>
                         </li>
                         <form th:action="@{|/category/subadd/${main.id}|}" method="post">
                             <input type="submit" value="+" style="text-align:rightt">
