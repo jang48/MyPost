@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long>  {
   List<Post> findBySubCategoryId(Integer subId);
-  Page<Post> findAll(Pageable pageable);
+  Page<Post> findBySubCategoryId(Integer subCategoryId, Pageable pageable);
 }

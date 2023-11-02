@@ -19,7 +19,6 @@ span{
 ul{
     margin : 0;
     padding : 3px;
-    list-style : none;
 }
 
 li{
@@ -38,7 +37,7 @@ a {
 
 .logo {
    // background : #0404B4;
-    background-image:url("https://cdn.pixabay.com/photo/2016/03/10/01/28/orange-1247700_1280.jpg");
+    // background-image:url("https://cdn.pixabay.com/photo/2016/03/10/01/28/orange-1247700_1280.jpg");
     height : 500px;
     color : black;
     height : 50px;
@@ -59,17 +58,17 @@ a {
     font-size : 15px;
     font-weight : bold;
     overflow : auto;
-    height: 90vh;
-    width: 18vw;
+    height: 85vh;
+    width: 13vw;
 }
 
 .content {
     // background:#8181F7;
     left : 10px;
-    width: 82vw;
-    overflow : hidden ;
-    height: 90vh;
-    overflow:hidden;
+    width: 81vw;
+    height: 85vh;
+    position: relative;
+    overflow:auto;
 }
 
 textarea{
@@ -88,7 +87,7 @@ input {
 
 .subtitle{
    font-weight : bold;
-   background : white;
+   background : #66CC8A;
    text-align : center;
 }
 
@@ -102,7 +101,6 @@ input {
 }
 
 .sublist{
-    display : none;
     color : #848484;
     font-size : 10px;
 }
@@ -137,7 +135,7 @@ input {
     flex-direction: row;
 }
 
-span:hover, span:focus{ animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; }
+.card-body:hover, .card-body:focus:focus{ animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; }
 @keyframes rainbowLink {
    0% { color: #ff2a2a; }
    15% { color: #ff7a2a; }
@@ -147,6 +145,7 @@ span:hover, span:focus{ animation-duration: 3s; animation-name: rainbowLink; ani
    75% { color: #202082; }
    90% { color: #6b2aff; }
    100% { color: #e82aff; }
+
   }
 
 .card.bg-base-100.shadow-xl{
@@ -155,22 +154,74 @@ span:hover, span:focus{ animation-duration: 3s; animation-name: rainbowLink; ani
     height : 200px;
     margin : 5px;
     font-size : 12px;
+
 }
 h2.card-title {
     font-size : 15px;
-      z-index: 0;
+    z-index: 0;
 }
 
 
 .postadd{
     position: relative;
-    top : -100%;
-    left : 80%;
-    margin : -11%;
+    left : 85%;
+    color : #66CC8A;
+    margin : 0;
+    font-weight : bold;
+    font-size : 2rem;
+    width : 10px;
+}
+
+.postcontent{
+    margin : 5px;
 }
 
 button.btn.btn-primary{
     font-size : 17px;
     width : 120px;
     height : 30px;
+}
+
+.pagination{
+     display:flex;
+     justify-content: center;
+}
+
+.pagination-container{
+     margin-top : 50px;
+}
+
+.date{
+    font-size : 10px;
+    text-align : right;
+}
+
+.hero {
+    min-height: 83vh;
+}
+
+img.mainjpg {
+    object-fit: fill;
+}
+.card-body{
+    display : flex;
+}
+
+div.form-control.mt-6 {
+    display : inline-block;
+    left: 10px;
+}
+
+.signup_form{
+   background : white;
+   width : 30%;
+   text-align: center;
+}
+
+.form-control{
+   width : 80%;
+}
+
+.back{
+    text-align : right;
 }

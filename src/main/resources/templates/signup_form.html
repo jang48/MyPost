@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}">
+<div layout:fragment="content-layout" class="content">
+    <div class="hero bg-base-200" >
+        <div>
+            <h4>회원가입</h4>
+            <img class="mainjpg" src="/travel-illustrations.jpg"/>
+        </div>
+        <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post"  class="signup_form">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자닉네임</label>
+                <input style="width : 200px" type="text" th:field="*{username}"  placeholder="nickname"  class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">비밀번호</label>
+                <input style="width : 200px" type="password" th:field="*{password1}" placeholder="password"  class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">비밀번호 확인</label>
+                <input style="width : 200px" type="password" th:field="*{password2}" placeholder="password" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label>
+                <input style="width : 200px" type="email" th:field="*{email}"  placeholder="email" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary" style="background : white">계정생성</button>
+        </form>
+    </div>
+</div>
+</html>

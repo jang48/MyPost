@@ -5,11 +5,20 @@ import com.korea.test.post.PostRepository;
 import com.korea.test.post.PostService;
 import com.korea.test.subcategory.SubCategory;
 import com.korea.test.subcategory.SubCategoryRepository;
+import com.korea.test.user.SiteUser;
+import com.korea.test.user.UserController;
+import com.korea.test.user.UserCreateForm;
+import com.korea.test.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.plaf.SpinnerUI;
 import java.util.List;
@@ -23,8 +32,8 @@ public class MainCategoryController {
   PostRepository postRepository;
   @Autowired
   PostService postService;
-
-
+  @Autowired
+  UserService userService;
   @RequestMapping("/category")
   public String main2(Model model) {
     List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
@@ -40,7 +49,7 @@ public class MainCategoryController {
   }
 
     @RequestMapping("/category/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
+    public String detail(Model model, @PathVariable("id") Integer id, @RequestParam(value="page", defaultValue="0") int page) {
       List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
       model.addAttribute("mainCategory", mainCategory);
 
@@ -53,10 +62,8 @@ public class MainCategoryController {
       SubCategory subContent = this.subCategoryRepository.findById(id).get();
       model.addAttribute("subContent",subContent);
 
-      List<Post> post = this.postRepository.findBySubCategoryId(id);
-      model.addAttribute("post", post);
-
-
+      Page<Post> paging = this.postService.getList(page,id);
+      model.addAttribute("paging", paging);
       return "postdetail";
     }
 
@@ -67,6 +74,4 @@ public class MainCategoryController {
       this.subCategoryRepository.save(subCategory);
      return "redirect:/category/detail/" + subid;
     }
-
-
 }
