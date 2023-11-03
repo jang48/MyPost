@@ -225,3 +225,75 @@ div.form-control.mt-6 {
 .back{
     text-align : right;
 }
+
+.posttotal{
+    flex-direction : column;
+}
+.post_top{
+    display : flex;
+}
+.subtitle{
+    width : 20%;
+}
+
+.post_content{
+    width : 40%;
+    height : 500px;
+    left : 20px;
+    font-size : 13px;
+    border: 5px double #66CC8A;
+    width : 40%;
+}
+
+
+.input.input-bordered:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px #e96c7c;
+}
+
+.post_top {
+   display: flex;
+}
+
+.post_middle{
+    display: flex;
+    flex-direction: row;
+}
+.commend{
+    display: block;
+    width : 30%;
+}
+
+.commend li {
+    position: relative;
+    font-size:13px;
+}
+
+.commend li a {
+    margin: 3px;
+}
+
+.commend li::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 500px;
+    height: 1px;
+    background: linear-gradient(to right, #aaa 50%, transparent 50%);
+    background-size: 4px 1px;
+}
+
+.post_bottom{
+    display : flex;
+}
+
+.ab{
+    display: flex;
+}
+
+.ab_c {
+    display: flex;
+    flex-direction: column;
+    width : -500%;
+}

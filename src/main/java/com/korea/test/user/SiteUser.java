@@ -1,9 +1,13 @@
 package com.korea.test.user;
 
+import com.korea.test.commend.Commend;
+import com.korea.test.post.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -16,7 +20,14 @@ public class SiteUser {
   @Column(unique = true)
   private String email;
 
+  @Column(unique = true)
   private String username;
 
   private String password;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE )
+  private List<Commend> commendList;
+
+  @OneToMany(mappedBy = "user")
+  private List<Post> postList;
 }

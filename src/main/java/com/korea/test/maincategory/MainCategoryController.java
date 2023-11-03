@@ -1,5 +1,9 @@
 package com.korea.test.maincategory;
 
+import com.korea.test.commend.Commend;
+import com.korea.test.commend.CommendController;
+import com.korea.test.commend.CommendRepository;
+import com.korea.test.commend.CommendService;
 import com.korea.test.post.Post;
 import com.korea.test.post.PostRepository;
 import com.korea.test.post.PostService;
@@ -34,6 +38,10 @@ public class MainCategoryController {
   PostService postService;
   @Autowired
   UserService userService;
+
+  @Autowired
+  CommendRepository commendRepository;
+
   @RequestMapping("/category")
   public String main2(Model model) {
     List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
@@ -64,6 +72,7 @@ public class MainCategoryController {
 
       Page<Post> paging = this.postService.getList(page,id);
       model.addAttribute("paging", paging);
+
       return "postdetail";
     }
 
@@ -72,6 +81,23 @@ public class MainCategoryController {
       SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
       subCategory.setSubtitle(subtitle);
       this.subCategoryRepository.save(subCategory);
-     return "redirect:/category/detail/" + subid;
+
+      return "redirect:/category/detail/" + subid;
+    }
+
+    @GetMapping("/category/post/{id}")
+    public String post(Model model,@PathVariable("id") Integer id){
+      List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+      model.addAttribute("mainCategory", mainCategory);
+
+      List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+      model.addAttribute("subCategory", subCategory);
+
+      Post post = this.postRepository.findById(id.longValue()).get();
+      model.addAttribute("post", post);
+
+      List<Commend> commends =  this.commendRepository.findByPostId(id);
+      model.addAttribute("commend",commends);
+      return "post_write";
     }
 }

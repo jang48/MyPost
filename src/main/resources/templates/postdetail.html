@@ -20,7 +20,9 @@
 
                     <!--                    <p class="postcontent" th:text="${target.content} == '' ? '내용없음' : ${target.content}"></p>-->
                     <div class="card-actions justify-end">
+                        <a th:href="@{|/category/post/${target.id}|}">
                         <button class="btn btn-primary">Detail</button>
+                        </a>
                     </div>
                     <div class="date">
                         <td th:text="${#temporals.format(target.createDate, 'yyyy-MM-dd HH:mm')}"></td>

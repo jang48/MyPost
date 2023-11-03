@@ -12,7 +12,10 @@
     <div class="logo">
     <a href="/">logo</a>
     </div>
+<!--    <div sec:authorize="isAuthenticated()" href="/main">메인</div>-->
+<!--    <div th:unless="${#authentication.getPrincipal() == 'anonymousUser'}">난 로그인한 사람이야</div>-->
     <div class="content-wrap">
+
         <div class="side-menu">
             <!--            3. 템플릿에서 게시물 목록 출력-->
             <ul>

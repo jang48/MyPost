@@ -74,9 +74,9 @@ public class UserController {
     return "redirect:/category";
   }
 
-  @GetMapping("/login")
+  @GetMapping("/user/login")
   public String login() {
-    return "login_form";
+    return "mainlist";
   }
 
 }

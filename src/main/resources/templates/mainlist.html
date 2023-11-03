@@ -9,7 +9,7 @@
                 <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             </div>
             <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                <form class="card-body" >
+                <form th:action="@{/user/login}" class="card-body" method="post" >
                     <div th:if="${param.error}">
                         <div class="alert alert-danger">
                             사용자ID 또는 비밀번호를 확인해 주세요.
@@ -19,19 +19,20 @@
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input style="width : 330px" type="email" placeholder="email" class="input input-bordered" required />
+                        <input style="width : 330px" type="email" placeholder="email" class="input input-bordered" name="username" required />
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Password</span>
                         </label>
-                        <input style="width : 330px" type="password" placeholder="password" class="input input-bordered" required />
+                        <input style="width : 330px" type="password" placeholder="password" name="password" class="input input-bordered" required />
                         <label class="label">
                             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                     </div>
                     <div class="form-control mt-6">
-                        <button class="btn btn-primary" onclick="doLogin(this.form)">Login</button>
+<!--                        <button class="btn btn-primary" onclick="doLogin(this.form)">Login</button>-->
+                        <button class="btn btn-primary" type="submit" >Login</button>
                         <button class="btn btn-primary" onclick="doJoin(this.form)">Join</button>
                     </div>
                 </form>

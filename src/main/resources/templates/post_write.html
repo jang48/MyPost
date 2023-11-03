@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}">
+<div layout:fragment="content-layout" class="content">
+  <div class="posttotal">
+        <div class="post_top">
+           <input class="subtitle" name="subtitle" th:value="${post.title}" disabled>
+            <input style="margin-left: 25%" class="visit" name="subvisit" th:value="댓글" disabled>
+        </div>
+        <div class="post_middle">
+            <textarea class="post_content" th:text="${post.content}" disabled></textarea>
+            <ul style="margin-left: 10%" class="commend">
+                <li th:each="commends : ${commend}">
+                    <a style="font-size : 11px; display: block;" th:text="${commends.user.username}"></a>
+
+                    <a style="font-size : 10px; margin-left : 30px; display: block;" th:text="${commends.commend}"></a>
+
+                    <a style="font-size : 8px" th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="post_bottom">
+            <a style="font-size : 9px; margin-left : 33%; display: block;"
+               class="post_writer" th:text="'작성자 : '+ ${post.user.username}"></a>
+        </div>
+    </div>
+
+<!--    <div class="ab">-->
+<!--        <div class="ab_c">-->
+<!--            <input class="subtitle" name="subtitle" th:value="${post.title}" disabled>-->
+<!--            <textarea class="post_content" th:text="${post.content}" disabled></textarea>-->
+<!--        </div>-->
+<!--        <div class="ab_d">-->
+<!--            <input style="margin-left: 25%" class="visit" name="subvisit" th:value="댓글" disabled>-->
+<!--            <li th:each="commends : ${commend}">&ndash;&gt;-->
+<!--                <a style="font-size : 11px" th:text="${commends.user.username}"></a>-->
+<!--                <br>-->
+<!--                <a style="font-size : 10px; margin-left : 30px" th:text="${commends.commend}"></a>-->
+<!--                <br>-->
+<!--                <a style="font-size : 8px" th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>-->
+<!--            </li>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+</html>
