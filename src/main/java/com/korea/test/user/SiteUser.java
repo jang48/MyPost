@@ -25,6 +25,8 @@ public class SiteUser {
 
   private String password;
 
+  private String authorize;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE )
   private List<Commend> commendList;
 

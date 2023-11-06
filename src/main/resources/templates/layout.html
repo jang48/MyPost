@@ -13,7 +13,13 @@
 <body>
 <div class = "wrap">
     <div class = "logo">
-        <a href = "/category">TRAVELLING WITH</a>
+        <a class="logo_home" href = "/home">TRAVELLING WITH</a>
+        <li class="login_out">
+            <a class="log_name" sec:authorize="isAuthenticated()" th:text="${#authentication.getPrincipal().getUsername()}+'님 안녕하세요'"
+               style="background: linear-gradient(to right, #A7A3FF,#FFA7A3, #671cc4, #5673bd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;" > </a>
+            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+            </div>
+        </li>
     </div>
     <div class = "content-wrap">
         <div class = "side-menu">
@@ -39,7 +45,7 @@
                             <li th:each = "sub : ${subCategory}">
                                 <a th:href="@{|/category/detail/${sub.id}|}" th:text = "${sub.subtitle}" th:if = "${sub.mainCategory.id == main.id}" ></a>
                             </li>
-                            <form th:action="@{|/category/subadd/${main.id}|}" method="post">-->
+                            <form th:action="@{|/category/subadd/${main.id}|}" th:if="${authority == 'host'}"  method="post">
                                 <input type="submit" value="+" style="text-align:rightt">
                             </form>
                         </ul>
@@ -49,7 +55,6 @@
         </div>
         <th:block layout:fragment="content-layout"> </th:block>
     </div>
-</div>
 <div>
     <footer class="footer footer-center p-6 bg-base-300 text-base-content">
         <aside>
@@ -59,8 +64,8 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script>-->
 <!--    $(document).ready(function() {-->
 <!--        var isSublistExpanded = localStorage.getItem('isSublistExpanded') === 'true';-->
 <!--        var slide = isSublistExpanded;-->
@@ -84,7 +89,7 @@
 <!--    });-->
 
 
-</script>
+<!--</script>-->
 
 </body>
 </html>

@@ -31,7 +31,7 @@
                         </label>
                     </div>
                     <div class="form-control mt-6">
-<!--                        <button class="btn btn-primary" onclick="doLogin(this.form)">Login</button>-->
+                        <!--                        <button class="btn btn-primary" onclick="doLogin(this.form)">Login</button>-->
                         <button class="btn btn-primary" type="submit" >Login</button>
                         <button class="btn btn-primary" onclick="doJoin(this.form)">Join</button>
                     </div>
@@ -39,20 +39,18 @@
             </div>
         </div>
     </div>
-    <script>
-        function doLogin(form){
-           form.action = "/user/login";
-           form.method = "post";
-           form.submit();
-        }
+
+<script>
+
 
         function doJoin(form){
+            console.log('111');
            form.action = "/user/signup";
            form.method = "get";
            form.submit();
         }
 
-    </script>
+</script>
 <!--        <li th:each = "main : ${mainCategory}">-->
 <!--            <span class = "list" th:text="${main.maintitle}"></span>-->
 <!--            <ul class = "sub">-->
@@ -66,5 +64,12 @@
 <!--                </li>-->
 <!--            </ul>-->
 <!--        </li>-->
+
+<!--        function doLogin(form){-->
+<!--           form.action = "/user/login";-->
+<!--           form.method = "post";-->
+<!--           form.submit();-->
+<!--        }-->
+
 </div>
 </html>

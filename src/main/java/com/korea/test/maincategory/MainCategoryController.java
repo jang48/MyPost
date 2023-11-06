@@ -17,6 +17,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +31,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.plaf.SpinnerUI;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Controller
 public class MainCategoryController {
   @Autowired
@@ -42,8 +52,14 @@ public class MainCategoryController {
   @Autowired
   CommendRepository commendRepository;
 
-  @RequestMapping("/category")
-  public String main2(Model model) {
+  @RequestMapping("/login")
+  public String main2() {
+    return "login_form";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @RequestMapping("/home")
+  public String home(Model model, Authentication authentication) {
     List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
     model.addAttribute("mainCategory", mainCategory);
 
@@ -53,51 +69,60 @@ public class MainCategoryController {
     List<Post> postList = this.postRepository.findAll();
     model.addAttribute("targetPost", postList);
 
-    return "mainlist";
+    model.addAttribute("authority", getAuthority(authentication));
+    return "main_home";
   }
 
-    @RequestMapping("/category/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, @RequestParam(value="page", defaultValue="0") int page) {
-      List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
-      model.addAttribute("mainCategory", mainCategory);
+  private String getAuthority(Authentication authentication) {
+    List<SimpleGrantedAuthority> authorities = (List<SimpleGrantedAuthority>) authentication.getAuthorities();
+    return authorities.get(0).toString();
+  }
 
-      List<SubCategory> subCategory = this.subCategoryRepository.findAll();
-      model.addAttribute("subCategory", subCategory);
+  @PreAuthorize("isAuthenticated()")
+  @RequestMapping("/category/detail/{id}")
+  public String detail(Model model, @PathVariable("id") Integer id, @RequestParam(value="page", defaultValue="0") int page) {
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
 
-      List<Post> postList = this.postRepository.findAll();
-      model.addAttribute("targetPost", postList);
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
 
-      SubCategory subContent = this.subCategoryRepository.findById(id).get();
-      model.addAttribute("subContent",subContent);
+    List<Post> postList = this.postRepository.findAll();
+    model.addAttribute("targetPost", postList);
 
-      Page<Post> paging = this.postService.getList(page,id);
-      model.addAttribute("paging", paging);
+    SubCategory subContent = this.subCategoryRepository.findById(id).get();
+    model.addAttribute("subContent",subContent);
 
-      return "postdetail";
+    Page<Post> paging = this.postService.getList(page,id);
+    model.addAttribute("paging", paging);
+
+    return "post_detail";
     }
 
-    @PostMapping("/category/update")
-    public String update(@RequestParam Integer subid, @RequestParam String subtitle){
-      SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
-      subCategory.setSubtitle(subtitle);
-      this.subCategoryRepository.save(subCategory);
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/category/update")
+  public String update(@RequestParam Integer subid, @RequestParam String subtitle){
+    SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
+    subCategory.setSubtitle(subtitle);
+    this.subCategoryRepository.save(subCategory);
 
-      return "redirect:/category/detail/" + subid;
-    }
+    return "redirect:/category/detail/" + subid;
+  }
 
-    @GetMapping("/category/post/{id}")
-    public String post(Model model,@PathVariable("id") Integer id){
-      List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
-      model.addAttribute("mainCategory", mainCategory);
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping("/category/post/{id}")
+  public String post(Model model,@PathVariable("id") Integer id){
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
 
-      List<SubCategory> subCategory = this.subCategoryRepository.findAll();
-      model.addAttribute("subCategory", subCategory);
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
 
-      Post post = this.postRepository.findById(id.longValue()).get();
-      model.addAttribute("post", post);
+    Post post = this.postRepository.findById(id.longValue()).get();
+    model.addAttribute("post", post);
 
-      List<Commend> commends =  this.commendRepository.findByPostId(id);
-      model.addAttribute("commend",commends);
-      return "post_write";
-    }
+    List<Commend> commends =  this.commendRepository.findByPostId(id);
+    model.addAttribute("commend",commends);
+    return "post_write";
+  }
 }

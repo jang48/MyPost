@@ -33,17 +33,8 @@ public class UserController {
   PostRepository postRepository;
 
   @GetMapping("/user/signup")
-  public String signup(Model model, UserCreateForm userCreateForm) {
-
-    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
-    model.addAttribute("mainCategory", mainCategory);
-
-    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
-    model.addAttribute("subCategory", subCategory);
-
-    List<Post> postList = this.postRepository.findAll();
-    model.addAttribute("targetPost", postList);
-
+  public String signup(Model model,UserCreateForm userCreateForm) {
+    model.addAttribute("userCreateForm", new UserCreateForm());
     return "signup_form";
   }
 
@@ -71,12 +62,12 @@ public class UserController {
       return "signup_form";
     }
 
-    return "redirect:/category";
+    return "redirect:/user/login";
   }
 
   @GetMapping("/user/login")
   public String login() {
-    return "mainlist";
+    return "login_form";
   }
 
 }

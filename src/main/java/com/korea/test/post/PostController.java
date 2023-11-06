@@ -3,6 +3,7 @@ package com.korea.test.post;
 import com.korea.test.subcategory.SubCategory;
 import com.korea.test.subcategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,6 +77,7 @@ public class PostController {
     return "redirect:/";
   }
 
+  @PreAuthorize("isAuthenticated()")
   @PostMapping("/category/postadd")
   public String postadd(@RequestParam Integer subid){
     SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
