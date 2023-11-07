@@ -16,8 +16,8 @@
         <a class="logo_home" href = "/home">TRAVELLING WITH</a>
         <li class="login_out">
             <a class="log_name" sec:authorize="isAuthenticated()" th:text="${#authentication.getPrincipal().getUsername()}+'님 안녕하세요'"
-               style="background: linear-gradient(to right, #A7A3FF,#FFA7A3, #671cc4, #5673bd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;" > </a>
-            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+               style="background: linear-gradient(to right, #A7A3FF,#FFA7A3, #671cc4, #5673bd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; font-size : 13px; margin-right : 10px;" > </a>
+            <a class="nav-link" style="font-size : 13px;  margin-right : 10px;" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
             </div>
         </li>
     </div>

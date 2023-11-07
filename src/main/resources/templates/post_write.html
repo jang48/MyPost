@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content-layout" class="content">
+<div layout:fragment="content-layout" class="content" style="margin-left : 3%">
   <div class="posttotal">
         <div class="post_top">
            <input class="subtitle" name="subtitle" th:value="${post.title}" disabled>
-            <input style="margin-left: 25%" class="visit" name="subvisit" th:value="댓글" disabled>
+           <input style="margin-left: 21%" class="visit" name="subvisit" th:value="댓글" disabled>
+        </div>
+        <div class="post_bottom">
+          <a style="font-size : 10px; margin-top : -5px; margin-left : 35%; display: block;"
+             class="post_writer" th:text="'작성자 : '+ (${post.user != null ? post.user.username : 'master'})"></a>
         </div>
         <div class="post_middle">
             <textarea class="post_content" th:text="${post.content}" disabled></textarea>
-            <ul style="margin-left: 10%" class="commend">
-                <li th:each="commends : ${commend}">
-                    <a style="font-size : 11px; display: block;" th:text="${commends.user.username}"></a>
-
-                    <a style="font-size : 10px; margin-left : 30px; display: block;" th:text="${commends.commend}"></a>
-
-                    <a style="font-size : 8px" th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="post_bottom">
-            <a style="font-size : 9px; margin-left : 33%; display: block;"
-               class="post_writer" th:text="'작성자 : '+ (${post.user != null ? post.user.username : 'master'})"></a>
+            <div class="commend_rayout" style="margin-left : 3%;">
+                <form class="commend" th:action="@{/commend/del}" method="post">
+                    <li th:each="commends : ${commend}">
+<!--                        <input type="hidden" name="postid" th:value="${post.id}"> -->
+                        <a class="commend_user" th:text="${commends.user.username}"></a>
+<!--                        <input class="commend_del" type="submit" value="삭제">-->
+                        <a class="commend_del" th:href="@{|/commend/del/${post.id}/${commends.id}|}" th:text="삭제" th:if="${commends.user.username == #authentication.getPrincipal().getUsername()}"></a>
+                        <a class="commend_del" th:if="${commends.user.username != #authentication.getPrincipal().getUsername()}" disabled="disabled" style="pointer-events: none; color : gray;">삭제</a>
+                        <a style="font-size : 12px; margin-left : 10px; margin-top : -20px; display: block; word-break: break-all;" th:text="${commends.commend}"></a>
+                        <a style="font-size : 10px; position : relative;" th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>
+                        <a style="font-size : 10px; position : relative; margin-left : 30px; margin-top : -10px;" th:text="답글쓰기"></a>
+                        <textarea> </textarea>
+                    </li>
+                </form>
+                <form th:action="@{/commend/new}" method="post">
+                    <label class="commend_new">
+                        <a class="commend_name" th:text="${#authentication.getPrincipal().getUsername()}"></a>
+                        <li class="commend_border">
+                            <textarea class="commend_content" name="commend" placeholder="댓글을 남겨보세요" onclick="btnFunc()" ></textarea>
+                        </li>
+                        <input type="hidden" name="postid" th:value="${post.id}">
+                        <input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}">
+                        <input class="commend_add" type="submit"  value="등록">
+                    </label>
+                </form>
+            </div>
         </div>
     </div>
+    <script>
+        var btn = document.getElementById("likeit")
+
+        btn.addEventListener('click',function(){
+                  btn.classList.toggle('active')
+          })
+    </script>
 </div>
 <!--    <div class="ab">-->
 <!--        <div class="ab_c">-->

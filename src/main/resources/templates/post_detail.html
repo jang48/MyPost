@@ -2,14 +2,16 @@
 <html lang="en" layout:decorate="~{layout}">
 <div layout:fragment="content-layout" class="content">
     <div>
-        <input type="hidden" name="subid" th:value="${subContent.id}">
-        <input class="subtitle" name="subtitle" th:value="${subContent.subtitle}">
-        <input class="subtitle2" type="button" value="수정" onclick="doUpdatesub(this.form)">
+        <form class="updatesub" th:action="@{/category/update}" method="post" >
+            <input type="hidden" name="subid" th:value="${subContent.id}">
+            <input class="subtitle" name="subtitle" th:value="${subContent.subtitle}">
+            <input class="subtitle2" type="button" value="수정" onclick="doUpdatesub(this.form)">
+        </form>
+        <form class="postadd" th:action="@{/category/postadd}" method="post">
+            <input type="hidden" name="subid" th:value="${subContent.id}">
+            <input type="submit" value="+">
+        </form>
     </div>
-    <form class="postadd" th:action="@{/category/postadd}" method="post">
-        <input type="hidden" name="subid" th:value="${subContent.id}">
-        <input type="submit" value="+">
-    </form>
     <div class="container">
         <div class="card-container">
             <!-- 카드들을 이 곳에 추가 -->
@@ -70,11 +72,9 @@
     <!--                </li>-->
     <!--            </ul>-->
     <!--        </div>-->
-    <script th:inline="javascript">
+    <script>
         function doUpdatesub(form) {
            if (confirm("정말 수정하시겠습니까?") == true) {
-              form.action = "/category/update";
-              form.method = "post";
               form.submit();
              }
         }

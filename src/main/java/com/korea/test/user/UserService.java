@@ -1,10 +1,10 @@
 package com.korea.test.user;
 
+import com.korea.test.dto.UserDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -20,10 +20,5 @@ public class UserService {
     user.setPassword(passwordEncoder.encode(password));
     this.userRepository.save(user);
     return user;
-  }
-
-  public String findusername(Integer id){
-    SiteUser user = this.userRepository.findById(id).get();
-    return user.getUsername();
   }
 }

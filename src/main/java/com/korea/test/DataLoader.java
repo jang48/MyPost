@@ -16,7 +16,6 @@ public class DataLoader implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    // 데이터베이스에 데이터가 없는 경우, 초기 데이터 생성 및 저장
     if (this.postRepository.count() == 0) {
       Post post = new Post();
       post.setTitle("new title..");

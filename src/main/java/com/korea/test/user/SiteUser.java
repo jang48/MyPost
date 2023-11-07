@@ -3,8 +3,8 @@ package com.korea.test.user;
 import com.korea.test.commend.Commend;
 import com.korea.test.post.Post;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +32,12 @@ public class SiteUser {
 
   @OneToMany(mappedBy = "user")
   private List<Post> postList;
+
+//  @Builder
+//  public SiteUser( String email, String password, String username, String authorize) {
+//    this.email = email;
+//    this.password = password;
+//    this.username = username;
+//    this.authorize = authorize;
+//  }
 }

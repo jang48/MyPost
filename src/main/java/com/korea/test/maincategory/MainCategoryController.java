@@ -9,10 +9,7 @@ import com.korea.test.post.PostRepository;
 import com.korea.test.post.PostService;
 import com.korea.test.subcategory.SubCategory;
 import com.korea.test.subcategory.SubCategoryRepository;
-import com.korea.test.user.SiteUser;
-import com.korea.test.user.UserController;
-import com.korea.test.user.UserCreateForm;
-import com.korea.test.user.UserService;
+import com.korea.test.user.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -47,10 +44,13 @@ public class MainCategoryController {
   @Autowired
   PostService postService;
   @Autowired
-  UserService userService;
-
-  @Autowired
   CommendRepository commendRepository;
+  @Autowired
+  UserRepository userRepository;
+  @Autowired
+  CommendService commendService;
+
+
 
   @RequestMapping("/login")
   public String main2() {
@@ -105,7 +105,6 @@ public class MainCategoryController {
     SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
     subCategory.setSubtitle(subtitle);
     this.subCategoryRepository.save(subCategory);
-
     return "redirect:/category/detail/" + subid;
   }
 
@@ -123,6 +122,36 @@ public class MainCategoryController {
 
     List<Commend> commends =  this.commendRepository.findByPostId(id);
     model.addAttribute("commend",commends);
+
     return "post_write";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/commend/new")
+  public String addcommed(@RequestParam Integer postid,  @RequestParam String username,@RequestParam String commend){
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    SiteUser siteUser =  this.userRepository.findByusername(username).get();
+    this.commendService.newcommend(post,siteUser,commend);
+    return "redirect:/category/post/" + postid;
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping("/commend/del/{postid}/{comid}")
+  public String delcommed(@PathVariable Integer postid,  @PathVariable Integer comid){
+    Commend commend = this.commendRepository.findById(comid).get();
+    this.commendRepository.delete(commend);
+    return "redirect:/category/post/" + postid;
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping("/host/manage")
+  public String manage(Model model){
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    return "host_manage";
   }
 }

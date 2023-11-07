@@ -14,6 +14,7 @@ public class MainCategory {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
   private String maintitle;
 
   @OneToMany(mappedBy = "mainCategory",cascade = CascadeType.REMOVE)

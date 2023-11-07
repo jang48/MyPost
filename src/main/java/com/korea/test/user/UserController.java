@@ -1,5 +1,6 @@
 package com.korea.test.user;
 
+import com.korea.test.dto.UserDto;
 import com.korea.test.maincategory.MainCategory;
 import com.korea.test.maincategory.MainCategoryRepository;
 import com.korea.test.post.Post;
@@ -69,6 +70,7 @@ public class UserController {
   public String login() {
     return "login_form";
   }
+
 
 }
 

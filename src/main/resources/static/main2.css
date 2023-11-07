@@ -5,10 +5,19 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin : 0;
     padding : 0;
-    font-family : 'SOYOMapleBoldTTF',cursive;
+    font-family: 'HakgyoansimWoojuR';
+    font-weight : bold;
+
 }
 
 footer{
@@ -156,8 +165,8 @@ input {
     padding : 5px;
     color : black;
     font-size : 12px;
-    display: flex;
-    flex-direction: row;
+    display : flex;
+    flex-direction : row;
 }
 
 .card-body:hover, .card-body:focus:focus{ animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; }
@@ -174,7 +183,7 @@ input {
   }
 
 .card.bg-base-100.shadow-xl{
-    display:inline-flex;
+    display : inline-flex;
     width : 180px;
     height : 200px;
     margin : 5px;
@@ -188,7 +197,7 @@ h2.card-title {
 
 
 .postadd{
-    position: relative;
+    position : relative;
     left : 85%;
     color : #66CC8A;
     margin : 0;
@@ -208,8 +217,8 @@ button.btn.btn-primary{
 }
 
 .pagination{
-     display:flex;
-     justify-content: center;
+     display : flex;
+     justify-content : center;
 }
 
 .pagination-container{
@@ -222,12 +231,12 @@ button.btn.btn-primary{
 }
 
 .hero {
-    min-height: 83vh;
+    min-height : 83vh;
     left : 30%;
 }
 
 img.mainjpg {
-    object-fit: fill;
+    object-fit : fill;
 }
 .card-body{
     display : flex;
@@ -235,13 +244,13 @@ img.mainjpg {
 
 div.form-control.mt-6 {
     display : inline-block;
-    left: 10px;
+    left : 10px;
 }
 
 .signup_form{
    background : white;
    width : 30%;
-   text-align: center;
+   text-align : center;
 }
 
 .form-control{
@@ -263,53 +272,102 @@ div.form-control.mt-6 {
 }
 
 .post_content{
-    width : 40%;
     height : 500px;
-    left : 20px;
     font-size : 13px;
-    border: 5px double #66CC8A;
+    border : 5px double #66CC8A;
     width : 40%;
 }
 
 
 .input.input-bordered:focus{
-  outline: none;
+  outline : none;
   box-shadow: 0 0 0 3px #e96c7c;
 }
 
 .post_top {
-   display: flex;
+   display : flex;
 }
 
 .post_middle{
-    display: flex;
+    display : flex;
     flex-direction: row;
 }
 .commend{
-    display: block;
-    width : 30%;
+    width : 500px;
+    height : 410px;
+    overflow:auto;
+
 }
 
 .commend li {
-    position: relative;
-    font-size:13px;
+    position : relative;
+    font-size : 13px;
 }
 
 .commend li a {
-    margin: 3px;
+    margin : 2px;
 }
 
 .commend li::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 500px;
-    height: 1px;
-    background: linear-gradient(to right, #aaa 50%, transparent 50%);
+    content : '';
+    position : absolute;
+    bottom : 0;
+    left : 0;
+    width: 470px;
+    height : 1px;
+    background : linear-gradient(to right, #aaa 50%, transparent 50%);
     background-size: 4px 1px;
 }
 
 .post_bottom{
     display : flex;
 }
+
+.commend_del{
+    display : block;
+    position: relative;
+    left : 400px;
+    color : #009F47;
+    top : -20px;
+    font-size : 13px;
+    width :30px;
+}
+
+.commend_user{
+    font-size : 15px;
+    display: block;
+    position: relative;
+}
+
+.commend_name {
+    display : block;
+    position: relative;
+    z-index : 2;
+    width : 15px;
+    font-size : 13px;
+    top : 10px;
+    left : 10px;
+}
+
+
+.commend_content {
+    position : relative;
+    margin-top : -15px;
+    padding : 20px;
+    z-index : 0;
+    width : 500px;
+    border: 2px solid #979797;
+    font-size : 13px;
+}
+
+.commend_add{
+    display : block;
+    position: relative;
+    z-index : 4;
+    margin-top : -8%;
+    margin-left : 430px;
+    font-size : 13px;
+    color : #009F47;
+}
+
+
