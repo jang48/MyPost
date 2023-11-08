@@ -33,6 +33,7 @@ public class SiteUser {
   @OneToMany(mappedBy = "user")
   private List<Post> postList;
 
+
 //  @Builder
 //  public SiteUser( String email, String password, String username, String authorize) {
 //    this.email = email;

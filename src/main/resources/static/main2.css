@@ -293,10 +293,7 @@ div.form-control.mt-6 {
     flex-direction: row;
 }
 .commend{
-    width : 500px;
-    height : 410px;
-    overflow:auto;
-
+    display : flex;
 }
 
 .commend li {
@@ -308,16 +305,6 @@ div.form-control.mt-6 {
     margin : 2px;
 }
 
-.commend li::before {
-    content : '';
-    position : absolute;
-    bottom : 0;
-    left : 0;
-    width: 470px;
-    height : 1px;
-    background : linear-gradient(to right, #aaa 50%, transparent 50%);
-    background-size: 4px 1px;
-}
 
 .post_bottom{
     display : flex;
@@ -326,9 +313,9 @@ div.form-control.mt-6 {
 .commend_del{
     display : block;
     position: relative;
-    left : 400px;
+    left : 430px;
     color : #009F47;
-    top : -20px;
+    top : -15px;
     font-size : 13px;
     width :30px;
 }
@@ -357,7 +344,7 @@ div.form-control.mt-6 {
     z-index : 0;
     width : 500px;
     border: 2px solid #979797;
-    font-size : 13px;
+    font-size : 12px;
 }
 
 .commend_add{
@@ -370,4 +357,116 @@ div.form-control.mt-6 {
     color : #009F47;
 }
 
+.commend_sub{
+    display : block;
+    margin-left : 10px;
+    width : 450px;
+    margin-bottom : -40px;
+}
 
+.commend_sub_name {
+    display : block;
+    position: relative;
+    font-size : 12px;
+    left : 10px;
+}
+
+.commend_sub_upd{
+    display : block;
+    position: relative;
+    left : 100px;
+    top : -16px;
+    width : 50px;
+    font-size : 10px;
+    color : #009F47;
+    cursor : pointer;
+}
+
+.commend_sub_sav{
+    display : block;
+    position: relative;
+    left : 115px;
+    top : -31px;
+    width : 50px;
+    font-size : 10px;
+    color : #009F47;
+    cursor : pointer;
+}
+
+.commend_sub_del{
+    display : block;
+    position: relative;
+    left : 160px;
+    top : -46px;
+    width : 50px;
+    font-size : 10px;
+    color : #009F47;
+}
+.commend_sub_content{
+    width : 400px;
+    font-size : 11px;
+    margin-left : 17px;
+    margin-bottom : -10px;
+    padding-left : 5px;
+    display: block;
+    word-break: break-all;
+    z-index : 0;
+}
+
+.commend_sub_text{
+    position : flex;
+
+}
+
+.commend_sub_add_name{
+    display: block;
+    position : relative;
+    left : 25px;
+    font-size: 12px;
+    top : 18px;
+    z-index : 1;
+}
+
+
+.commend_sub_write {
+    position : relative;
+    display: block;
+    margin-left : 15px;
+    z-index : 0;
+    width : 480px;
+    border: 2px solid #979797;
+    font-size : 12px;
+    padding : 20px 0px 0px 10px ;
+}
+
+.commend_sub_write::placeholder {
+  font-size: 10px;
+}
+
+.commend_sub_add{
+    position : flex;
+}
+
+.commend_sub_add_btn{
+    display : block;
+    position: relative;
+    top : -30px;
+    left : 425px;
+    font-size : 10px;
+    color : #009F47;
+}
+
+.commend_open{
+    font-size : 10px;
+    position : relative;
+    margin-top : -10px;
+    cursor :  pointer;
+}
+
+.commend_colse{
+    font-size : 10px;
+    position : relative;
+    margin-top : -10px;
+    margin-left : -30px;
+    cursor :  pointer;
+}
