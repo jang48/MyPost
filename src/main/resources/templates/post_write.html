@@ -17,32 +17,50 @@
                     <!--                        <input type="hidden" name="postid" th:value="${post.id}"> -->
                     <a class="commend_user" th:text="${commends.user.username}"></a>
                     <!--                        <input class="commend_del" type="submit" value="삭제">-->
-                    <a class="commend_del" th:href="@{|/commend/del/${post.id}/${commends.id}|}" th:text="삭제" th:if="${commends.user.username == #authentication.getPrincipal().getUsername()}"></a>
-                    <a class="commend_del" th:if="${commends.user.username != #authentication.getPrincipal().getUsername()}" disabled="disabled" style="pointer-events: none; color : gray;">삭제</a>
-                    <a style="font-size : 12px; margin-left : 10px; margin-top : -20px; display: block; word-break: break-all;" th:text="${commends.commend}"></a>
-                    <a style="font-size : 11px; position : relative;" th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>
-                    <input class="commend_open"  th:value="댓글보기" type="button" onclick="showCommentSubLayout(this);">
-                    <input class="commend_colse" th:value="댓글닫기" type="button" onclick="colseCommentSubLayout(this);">
-                    <div class="commend_sub_layout" style="display: none;">
-                        <div class="commend_sub" th:each="subCommend : ${commend}" th:if="${subCommend.parent == commends.id}">
+                    <a class="commend_del" th:href="@{|/commend/del/${post.id}/${commends.id}|}" th:text="삭제"
+                       th:if="${commends.user.username == #authentication.getPrincipal().getUsername()}"></a>
+                    <a class="commend_del"
+                       th:if="${commends.user.username != #authentication.getPrincipal().getUsername()}"
+                       disabled="disabled" style="pointer-events: none; color : gray;">삭제</a>
+                    <a style="font-size : 12px; margin-left : 10px; margin-top : -20px; display: block; word-break: break-all;"
+                       th:text="${commends.commend}"></a>
+                    <a style="font-size : 11px; position : relative;"
+                       th:text="${#temporals.format(commends.createDate, 'yyyy-MM-dd HH:mm')}"></a>
+                    <!--                    <input class="commend_open"  th:value="댓글보기" type="button" onclick="showCommentSubLayout(this);">-->
+                    <!--                    <input class="commend_colse" th:value="댓글닫기" type="button" onclick="colseCommentSubLayout(this);">-->
+                    <div class="commend_sub_layout">
+                        <div class="commend_sub" th:each="subCommend : ${commend}"
+                             th:if="${subCommend.parent == commends.id}">
                             <form th:action="@{/commend/upd}" method="post">
                                 <input type="hidden" name="postid" th:value="${post.id}">
                                 <input type="hidden" name="comid" th:value="${subCommend.id}">
                                 <a class="commend_sub_name" th:text="${subCommend.user.username}"></a>
                                 <label style="display : block; margin-bottom : 10px;">
-                                    <input class="commend_sub_content" name="subcommend" th:value="${subCommend.isDeleted ? '삭제된 댓글입니다.' : subCommend.commend}" readonly>
+                                    <input class="commend_sub_content" name="subcommend"
+                                           th:value="${subCommend.isDeleted ? '삭제된 댓글입니다.' : subCommend.commend}"
+                                           readonly>
                                 </label>
-                                <a style="font-size : 10px; position : relative; left : 10px;" th:text="${#temporals.format(subCommend.createDate, 'yyyy-MM-dd HH:mm')}"></a>
-                                <a class="commend_sub_upd" th:text="수정" th:if="${subCommend.user.username == #authentication.getPrincipal().getUsername()}" onclick="updatecomment(this)"></a>
-                                <input class="commend_sub_sav" type="submit" th:value="저장" th:if="${subCommend.user.username == #authentication.getPrincipal().getUsername()}">
-                                <a class="commend_sub_del" th:href="@{|/commend/delsub/${post.id}/${subCommend.id}|}" th:text="삭제" th:if="${subCommend.user.username == #authentication.getPrincipal().getUsername()}" ></a>
+                                <a style="font-size : 10px; position : relative; left : 10px;"
+                                   th:text="${#temporals.format(subCommend.createDate, 'yyyy-MM-dd HH:mm')}"></a>
+                                <a class="commend_sub_upd" th:text="수정"
+                                   th:onclick="${subCommend.user.username == #authentication.getPrincipal().getUsername()} ? 'updatecomment(this)' : 'return false;'"></a>
+                                <input class="commend_sub_sav" type="submit" th:value="저장"
+                                       th:disabled="${subCommend.user.username != #authentication.getPrincipal().getUsername()}">
+                                <a class="commend_sub_del"
+                                   th:if="${subCommend.user.username == #authentication.getPrincipal().getUsername()}"
+                                   th:href="@{|/commend/delsub/${post.id}/${subCommend.id}|}" th:text="삭제"></a>
+                                <a class="commend_sub_del"
+                                   th:if="${subCommend.user.username != #authentication.getPrincipal().getUsername()}"
+                                   th:text="삭제" onclick="return false;"></a>
                             </form>
                         </div>
 
                         <form class="commend_sub_add" th:action="@{/commend/subcommend/new}" method="post">
                             <label class="commend_sub_text">
-                                <input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}">
-                                <a class="commend_sub_add_name" th:text="${#authentication.getPrincipal().getUsername()}"></a>
+                                <input type="hidden" name="username"
+                                       th:value="${#authentication.getPrincipal().getUsername()}">
+                                <a class="commend_sub_add_name"
+                                   th:text="${#authentication.getPrincipal().getUsername()}"></a>
                                 <textarea class="commend_sub_write" name="commend" placeholder="댓글을 남겨보세요"></textarea>
                             </label>
                             <input type="hidden" name="postid" th:value="${post.id}">
@@ -65,11 +83,12 @@
                     <label class="commend_new">
                         <a class="commend_name" th:text="${#authentication.getPrincipal().getUsername()}"></a>
                         <li class="commend_border">
-                            <textarea class="commend_content" name="commend" placeholder="댓글을 남겨보세요" onclick="btnFunc()" ></textarea>
+                            <textarea class="commend_content" name="commend" placeholder="댓글을 남겨보세요"
+                                      onclick="btnFunc()"></textarea>
                         </li>
                         <input type="hidden" name="postid" th:value="${post.id}">
                         <input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}">
-                        <input class="commend_add" type="submit"  value="등록">
+                        <input class="commend_add" type="submit" value="등록">
                     </label>
                 </form>
             </div>
@@ -83,30 +102,31 @@
                 input.focus();
         }
 
-        function showCommentSubLayout(button) {
-            var parentDiv = button.parentElement;
-            var subLayout = parentDiv.querySelector(".commend_sub_layout");
-            subLayout.style.display = "block";
-            localStorage.setItem("commendSubLayoutVisible", "true");
-        }
+<!--       function showCommentSubLayout(button) {-->
+<!--            var parentDiv = button.parentElement;-->
+<!--            var subLayout = parentDiv.querySelector(".commend_sub_layout");-->
+<!--            subLayout.style.display = "block";-->
+<!--            localStorage.setItem("commendSubLayoutVisible", "true");-->
+<!--        }-->
 
-        function colseCommentSubLayout(button) {
-            var parentDiv = button.parentElement;
-            var subLayout = parentDiv.querySelector(".commend_sub_layout");
-            subLayout.style.display = "none";
-            localStorage.setItem("commendSubLayoutVisible", "false");
-        }
+<!--        function colseCommentSubLayout(button) {-->
+<!--            var parentDiv = button.parentElement;-->
+<!--            var subLayout = parentDiv.querySelector(".commend_sub_layout");-->
+<!--            subLayout.style.display = "none";-->
+<!--            localStorage.setItem("commendSubLayoutVisible", "false");-->
+<!--        }-->
 
-        window.onload = function () {
-        var commendSubLayoutVisible = localStorage.getItem("commendSubLayoutVisible");
-        if (commendSubLayoutVisible === "true") {
-            var subLayout = document.querySelector(".commend_sub_layout");
-            subLayout.style.display = "block";
-        } else {
-            var subLayout = document.querySelector(".commend_sub_layout");
-            subLayout.style.display = "none";
-        }
-    };
+<!--        window.onload = function () {-->
+<!--            var commendSubLayoutVisible = localStorage.getItem("commendSubLayoutVisible");-->
+<!--            if (commendSubLayoutVisible === "true") {-->
+<!--                var subLayout = document.querySelector(".commend_sub_layout");-->
+<!--                subLayout.style.display = "block";-->
+<!--            } else {-->
+<!--                var subLayout = document.querySelector(".commend_sub_layout");-->
+<!--                subLayout.style.display = "none";-->
+<!--            }-->
+<!--        };-->
+
 
     </script>
 </div>

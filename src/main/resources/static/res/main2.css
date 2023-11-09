@@ -270,7 +270,6 @@ div.form-control.mt-6 {
     width : 40%;
 }
 
-
 .input.input-bordered:focus{
   outline: none;
   box-shadow: 0 0 0 3px #e96c7c;

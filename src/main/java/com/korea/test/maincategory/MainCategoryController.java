@@ -1,7 +1,6 @@
 package com.korea.test.maincategory;
 
 import com.korea.test.commend.Commend;
-import com.korea.test.commend.CommendController;
 import com.korea.test.commend.CommendRepository;
 import com.korea.test.commend.CommendService;
 import com.korea.test.post.Post;
@@ -10,28 +9,18 @@ import com.korea.test.post.PostService;
 import com.korea.test.subcategory.SubCategory;
 import com.korea.test.subcategory.SubCategoryRepository;
 import com.korea.test.user.*;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.swing.plaf.SpinnerUI;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class MainCategoryController {
@@ -47,6 +36,10 @@ public class MainCategoryController {
   CommendRepository commendRepository;
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  UserService userService;
+
   @Autowired
   CommendService commendService;
 
@@ -122,7 +115,6 @@ public class MainCategoryController {
 
     List<Commend> commends =  this.commendRepository.findByPostId(id);
     model.addAttribute("commend",commends);
-
     return "post_write";
   }
 
@@ -177,6 +169,48 @@ public class MainCategoryController {
     List<SubCategory> subCategory = this.subCategoryRepository.findAll();
     model.addAttribute("subCategory", subCategory);
 
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
     return "host_manage";
   }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/host/manage/auto")
+  public String infro(Model model,@RequestParam Integer chk_info){
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
+    SiteUser userinfo = this.userService.detail(chk_info);
+    model.addAttribute("userinfo", userinfo);
+
+    return "host_manage";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/host/manage/updateauto")
+  public String updateautho(Model model,@RequestParam Integer id,@RequestParam String autho){
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
+    SiteUser userinfo = this.userService.detail(id);
+    model.addAttribute("userinfo", userinfo);
+
+    SiteUser upinfo = this.userService.update(id,autho);
+
+    return "host_manage";
+  }
+
 }

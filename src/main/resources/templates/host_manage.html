@@ -1,20 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content-layout" class="content">
-    <h1>User List</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Authorize</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.authorize}"></td>
-        </tr>
-    </table>
+<html lang="en" layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+<div layout:fragment="content-layout" class="host_content">
+    <div class="tabs">
+        <input id="authorize" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="authorize">권한관리</label>
+        <input id="category" type="radio" name="tab_item">
+        <label class="tab_item" for="category">카테고리관리</label>
+        <input id="design" type="radio" name="tab_item">
+        <label class="tab_item" for="design">Tab 3</label>
+        <div class="usercontent" id="authorize_info">
+            <form th:action="@{/host/manage/auto}" method="post" class="flex">
+                <div class="usertable">
+                    <h1 style="margin-top : 10%; margin-left : 110px; margin-bottom : 10px;">* 회원정보 *</h1>
+                    <table class="usertable_array">
+                        <thead>
+                        <tr class="usertable_head">
+                            <th style="padding-left : 10px;">Check</th>
+                            <th style="padding-left : 50px;">Name</th>
+                            <th style="padding-left : 30px;">Authorize</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="users : ${user}">
+                            <th style="padding-left : 15px;">
+                                <input class="checkbox" type="radio" name="chk_info" th:value="${users.id}"
+                                       style="background-color: lightgray;">
+                            </th>
+                            <td>
+                                <span style="padding-left : 60px;" th:text="${users.username}"></span>
+                            </td>
+                            <td>
+                                <span style="padding-left : 30px;" th:text="${users.authorize}"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input class="detail_btn" type="submit" value="상세보기">
+                </div>
+            </form>
+            <a style="margin-top : 230px; margin-left : 150px;" > > </a>
+            <form th:action="@{/host/manage/updateauto}" method="post">
+                <h2 style="margin-top : 40%; margin-left : 110px; margin-bottom : 10px;">* 권한설정 *</h2>
+                <div class="userdetail">
+                    <table style="height : 50px;">
+                        <thead>
+                        <tr class="userdetail_head">
+                            <th>Name</th>
+                            <th style="padding-left : 50px;">Authorize</th>
+                            <th style="padding-left : 30px;">Join</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="display: none;">
+                                <input type="hidden" name="id" th:value="${userinfo.id}" th:if="${userinfo != null}">
+                            </td>
+                            <td style="width : 80px;">
+                                <span th:text="${userinfo.username}" th:if="${userinfo != null}"></span>
+                            </td>
+                            <td style="padding-left : 50px; width : 80px;">
+                                <label>
+                                    <select name="autho" th:if="${userinfo != null}">
+                                        <option value="host" th:selected="${userinfo.authorize == 'host'}"> host
+                                        </option>
+                                        <option value="first" th:selected="${userinfo.authorize == 'first'}"> first
+                                        </option>
+                                        <option value="business" th:selected="${userinfo.authorize == 'business'}"> business
+                                        </option>
+                                        <option value="economy" th:selected="${userinfo.authorize == 'economy'}"> economy
+                                        </option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td style="padding-left : 30px; width : 150px;">
+                                <span th:text="${#temporals.format(userinfo.DateTime, 'yyyy-MM-dd')}"
+                                      th:if="${userinfo != null}"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input class="userdetail_store" type="submit" value="저장">
+                </div>
+            </form>
+        </div>
+        <div class="category_info" id="category_info" >
+            <div>
+                <h1 style="margin-top : 10%; margin-left : 110px; margin-bottom : 10px;">* 메인Category *</h1>
+                <ul th:each="maincategory : ${mainCategory}">
+                    <li th:text="${maincategory.maintitle}"></li>
+<!--                    <li style="maring-left : 30px;" th:each="subCategory : ${subCategory}">-->
+<!--                        <span th:text="${subCategory.subtitle}" th:if="${"></span>-->
+<!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

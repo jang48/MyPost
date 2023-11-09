@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,8 @@ public class SiteUser {
   private String password;
 
   private String authorize;
+
+  private LocalDateTime DateTime;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE )
   private List<Commend> commendList;

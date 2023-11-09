@@ -6,10 +6,11 @@
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">Login now!</h1>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                    exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             </div>
             <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                <form th:action="@{/user/login}" class="card-body" method="post" >
+                <form th:action="@{/user/login}" class="card-body" method="post">
                     <div th:if="${param.error}">
                         <div class="alert alert-danger">
                             사용자ID 또는 비밀번호를 확인해 주세요.
@@ -19,20 +20,22 @@
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input style="width : 330px" type="email" placeholder="email" class="input input-bordered" name="username" required />
+                        <input style="width : 330px" type="email" placeholder="email" class="input input-bordered"
+                               name="username" required/>
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Password</span>
                         </label>
-                        <input style="width : 330px" type="password" placeholder="password" name="password" class="input input-bordered" required />
+                        <input style="width : 330px" type="password" placeholder="password" name="password"
+                               class="input input-bordered" required/>
                         <label class="label">
                             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                     </div>
                     <div class="form-control mt-6">
                         <!--                        <button class="btn btn-primary" onclick="doLogin(this.form)">Login</button>-->
-                        <button class="btn btn-primary" type="submit" >Login</button>
+                        <button class="btn btn-primary" type="submit">Login</button>
                         <button class="btn btn-primary" onclick="doJoin(this.form)">Join</button>
                     </div>
                 </form>
@@ -40,7 +43,7 @@
         </div>
     </div>
 
-<script>
+    <script>
 
 
         function doJoin(form){
@@ -50,26 +53,26 @@
            form.submit();
         }
 
-</script>
-<!--        <li th:each = "main : ${mainCategory}">-->
-<!--            <span class = "list" th:text="${main.maintitle}"></span>-->
-<!--            <ul class = "sub">-->
-<!--                <li th:each = "sub : ${subCategory}" th:if = "${sub.mainCategory.id == main.id}">-->
-<!--                    <span th:text = "'⭐' + ${sub.subtitle}"></span>-->
-<!--                    <ul class="subpost">-->
-<!--                        <li th:each = "post : ${targetPost}" th:if = "${post.subCategory.id == sub.id}">-->
-<!--                            <span th:text="${post.title}"></span>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </li>-->
+    </script>
+    <!--        <li th:each = "main : ${mainCategory}">-->
+    <!--            <span class = "list" th:text="${main.maintitle}"></span>-->
+    <!--            <ul class = "sub">-->
+    <!--                <li th:each = "sub : ${subCategory}" th:if = "${sub.mainCategory.id == main.id}">-->
+    <!--                    <span th:text = "'⭐' + ${sub.subtitle}"></span>-->
+    <!--                    <ul class="subpost">-->
+    <!--                        <li th:each = "post : ${targetPost}" th:if = "${post.subCategory.id == sub.id}">-->
+    <!--                            <span th:text="${post.title}"></span>-->
+    <!--                        </li>-->
+    <!--                    </ul>-->
+    <!--                </li>-->
+    <!--            </ul>-->
+    <!--        </li>-->
 
-<!--        function doLogin(form){-->
-<!--           form.action = "/user/login";-->
-<!--           form.method = "post";-->
-<!--           form.submit();-->
-<!--        }-->
+    <!--        function doLogin(form){-->
+    <!--           form.action = "/user/login";-->
+    <!--           form.method = "post";-->
+    <!--           form.submit();-->
+    <!--        }-->
 
 </div>
 </html>

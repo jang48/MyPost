@@ -434,7 +434,6 @@ div.form-control.mt-6 {
     margin-left : 15px;
     z-index : 0;
     width : 480px;
-    border: 2px solid #979797;
     font-size : 12px;
     padding : 20px 0px 0px 10px ;
 }
@@ -469,4 +468,79 @@ div.form-control.mt-6 {
     margin-top : -10px;
     margin-left : -30px;
     cursor :  pointer;
+}
+
+.host_content{
+    display: block;
+    margin-top : 10px;
+    width : 80%;
+    height : 600px;
+    border : 1px solid #979797;
+}
+
+.tab_item {
+    width: calc(100%/3);
+    height: 50px;
+    border-bottom: 3px solid #009F47;
+    background-color: #f8f8f8;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #333333;
+    display: block;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.detail_btn{
+    font-size : 15px;
+    margin-left : 200px;
+    margin-top : 10px;
+    border : 1px solid #979797;
+}
+.tab_item:hover {
+    opacity: 0.75;
+}
+
+/* 라디오 버튼 UI삭제*/
+input[name="tab_item"] {
+    display: none;
+}
+
+.tabs input:checked + .tab_item {
+    background-color: #009F47;
+    color: #fff;
+}
+
+.usercontent, .category_info {
+    display: none;
+}
+
+#authorize:checked ~ #authorize_info,
+#category:checked ~ #category_info{
+    display: flex;
+}
+
+.usertable{
+    margin-left : 200px;
+}
+
+.usertable_array{
+    height : 250px;
+}
+
+ .userdetail{
+    display: fix;
+    margin-left : 80px;
+    text-align : center;
+ }
+
+.userdetail_store{
+    font-size : 15px;
+    border : 1px solid #979797;
+    width : 40px;
+    text-align : center;
+    margin-left : 300px;
 }
