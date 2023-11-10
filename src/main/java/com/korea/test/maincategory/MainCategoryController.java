@@ -99,10 +99,11 @@ public class MainCategoryController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/category/update")
-  public String update(@RequestParam Integer subid, @RequestParam String subtitle){
+  public String update(@RequestParam Integer subid, @RequestParam String subtitle, @RequestParam String postname){
     SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
     subCategory.setSubtitle(subtitle);
     this.subCategoryRepository.save(subCategory);
+    this.userRepository.findByusername(postname);
     return "redirect:/category/detail/" + subid;
   }
 
@@ -125,35 +126,49 @@ public class MainCategoryController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/commend/new")
-  public String addcommed(@RequestParam Integer postid,  @RequestParam String username,@RequestParam String commend){
+  public String addcommed(Model model,@RequestParam Integer postid, @RequestParam String username,@RequestParam String commend){
     Post post = this.postRepository.findById(postid.longValue()).get();
+    model.addAttribute("post", post);
+
     SiteUser siteUser =  this.userRepository.findByusername(username).get();
+
     this.commendService.newcommend(post,siteUser,commend);
+
     return "redirect:/category/post/" + postid;
   }
 
   @PreAuthorize("isAuthenticated()")
   @GetMapping("/commend/del/{postid}/{comid}")
-  public String delcommed(@PathVariable Integer postid,  @PathVariable Integer comid){
+  public String delcommed(Model model,@PathVariable Integer postid,  @PathVariable Integer comid){
     Commend commend = this.commendRepository.findById(comid).get();
     this.commendRepository.delete(commend);
+
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    model.addAttribute("post", post);
+
     return "redirect:/category/post/" + postid;
   }
 
   @PreAuthorize("isAuthenticated()")
   @GetMapping("/commend/delsub/{postid}/{comid}")
-  public String delcommedcommed(@PathVariable Integer postid,  @PathVariable Integer comid){
+  public String delcommedcommed(Model model,@PathVariable Integer postid,  @PathVariable Integer comid){
     this.commendService.delcommend(comid, true);
+
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    model.addAttribute("post", post);
+
     return "redirect:/category/post/" + postid;
   }
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/commend/subcommend/new")
-  public String addsubcommed(@RequestParam Integer postid,  @RequestParam String username, @RequestParam String commend, @RequestParam Integer commendid){
+  public String addsubcommed(Model model,@RequestParam Integer postid,  @RequestParam String username, @RequestParam String commend, @RequestParam Integer commendid){
     Post post = this.postRepository.findById(postid.longValue()).get();
-    System.out.println(username);
+    model.addAttribute("post", post);
+
     SiteUser siteUser =  this.userRepository.findByusername(username).get();
     this.commendService.newsubcommend(post,siteUser,commend,commendid);
+
     return "redirect:/category/post/" + postid;
   }
 
@@ -163,10 +178,58 @@ public class MainCategoryController {
     Commend commend = this.commendRepository.findById(comid).get();
     commend.setCommend(subcommend);
     this.commendRepository.save(commend);
+
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    model.addAttribute("post", post);
+
     return "redirect:/category/post/" + postid;
   }
+
   @PreAuthorize("isAuthenticated()")
-  @GetMapping("/host/manage")
+  @PostMapping("/category/postupdate")
+  public String postupdate(Model model,@RequestParam Integer postid,@RequestParam String postcontent){
+
+    this.postService.updatepost(postid, postcontent);
+
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    model.addAttribute("post", post);
+
+
+    return "post_write";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/category/postdelete")
+  public String postdelete(Model model,@RequestParam Integer id, @RequestParam(value="page", defaultValue="0") int page, @RequestParam Integer postid){
+
+    Post post = this.postRepository.findById(postid.longValue()).get();
+    this.postRepository.delete(post);
+
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<Post> postList = this.postRepository.findAll();
+    model.addAttribute("targetPost", postList);
+
+    System.out.println(id);
+    SubCategory subContent = this.subCategoryRepository.findById(id).get();
+    model.addAttribute("subContent",subContent);
+
+    Page<Post> paging = this.postService.getList(page,id);
+    model.addAttribute("paging", paging);
+
+    return "redirect:/category/detail/" + postid;
+  }
+
   public String manage(Model model){
     List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
     model.addAttribute("mainCategory", mainCategory);
@@ -275,4 +338,6 @@ public class MainCategoryController {
 
     return "host_manage";
   }
+
+
 }

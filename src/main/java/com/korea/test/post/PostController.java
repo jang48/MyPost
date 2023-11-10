@@ -28,17 +28,17 @@ public class PostController {
     return "test";
   }
 
-  @RequestMapping("/")
-  public String main(Model model, Authentication authentication) {
-
-    //1. DB에서 데이터 꺼내오기
-    List<Post> postList = this.postRepository.findAll();
-    //2. 꺼내온 데이터를 템플릿으로 보내기
-    model.addAttribute("postList", postList);
-    model.addAttribute("targetPost", postList.get(0));
-
-    return "main";
-  }
+//  @RequestMapping("/")
+//  public String main(Model model, Authentication authentication) {
+//
+//    //1. DB에서 데이터 꺼내오기
+//    List<Post> postList = this.postRepository.findAll();
+//    //2. 꺼내온 데이터를 템플릿으로 보내기
+//    model.addAttribute("postList", postList);
+//    model.addAttribute("targetPost", postList.get(0));
+//
+//    return "main";
+//  }
 
   @PostMapping("/write")
   public String write() {
@@ -79,9 +79,9 @@ public class PostController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/category/postadd")
-  public String postadd(@RequestParam Integer subid){
+  public String postadd(@RequestParam Integer subid,@RequestParam String postname){
     SubCategory subCategory = this.subCategoryRepository.findById(subid).get();
-    this.postService.createpost(subCategory);
+    this.postService.createpost(subCategory, postname);
     return "redirect:/category/detail/" + subid;
   }
 

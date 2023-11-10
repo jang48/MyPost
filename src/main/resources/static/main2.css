@@ -283,14 +283,11 @@ div.form-control.mt-6 {
   box-shadow: 0 0 0 3px #e96c7c;
 }
 
-.post_top {
-   display : flex;
-}
-
 .post_middle{
     display : flex;
     flex-direction: row;
 }
+
 .commend{
     display : flex;
 }
@@ -304,8 +301,7 @@ div.form-control.mt-6 {
     margin : 2px;
 }
 
-
-.post_bottom{
+.post_between{
     display : flex;
 }
 
@@ -401,6 +397,7 @@ div.form-control.mt-6 {
     font-size : 10px;
     color : #009F47;
 }
+
 .commend_sub_content{
     width : 400px;
     font-size : 11px;
@@ -425,7 +422,6 @@ div.form-control.mt-6 {
     top : 18px;
     z-index : 1;
 }
-
 
 .commend_sub_write {
     position : relative;
@@ -467,6 +463,24 @@ div.form-control.mt-6 {
     margin-top : -10px;
     margin-left : -30px;
     cursor :  pointer;
+}
+
+
+.commend_update{
+    font-size : 10px;
+    margin-left : 30%;
+    display: block;
+    border : 1px solid #979797;
+    width : 60px;
+}
+
+.commend_delete{
+    font-size : 10px;
+    margin-top : -16px;
+    margin-left : 35%;
+    display: block;
+    border : 1px solid #979797;
+    width : 60px;
 }
 
 .host_content{
@@ -559,7 +573,7 @@ input[name="tab_item"] {
     border : 1px solid #979797;
     width : 40px;
     maring-top : 5px;
-    margin-left : -100px;
+    margin-left : -10px;
     padding-left : 5px;
 }
 .category_form{

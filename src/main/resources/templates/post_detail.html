@@ -9,13 +9,14 @@
         </form>
         <form class="postadd" th:action="@{/category/postadd}" method="post">
             <input type="hidden" name="subid" th:value="${subContent.id}">
+            <input type="hidden" name="postname" th:value="${#authentication.getPrincipal().getUsername()}">
             <input type="submit" value="+">
         </form>
     </div>
     <div class="container">
         <div class="card-container">
             <!-- 카드들을 이 곳에 추가 -->
-            <div class="card bg-base-100 shadow-xl" th:each="target, iterStat : ${paging.content}">
+            <div class="card bg-base-100 shadow-xl" th:each="target, iterStat : ${paging}">
                 <div class="card-body">
                     <h2 class="card-title" th:text="${target.title}"></h2>
                     <p class="postcontent"
@@ -40,19 +41,16 @@
         <div class="pagination-container">
             <div th:if="${!paging.isEmpty()}">
                 <ul class="pagination">
-                    <li th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <li class="page-item" th:style="${!paging.hasPrevious} ? 'pointer-events: none;' : ''">
                         <a th:href="@{|?page=${paging.number-1}|}">
                             <button class="join-item btn">«</button>
                         </a>
                     </li>
-                    <button>
-                        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}" class="join-item btn"
-                            th:classappend="${page == paging.number} ? 'btn-active'">
-                            <a th:text="${page}" th:href="@{|?page=${page}|}"></a>
-                    </button>
-
+                    <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}" class="join-item btn"
+                        th:classappend="${page == paging.number} ? 'btn-active'">
+                        <a th:text="${page}" th:href="@{|?page=${page}|}"></a>
                     </li>
-                    <li th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <li th:style="${!paging.hasNext} ? 'pointer-events: none;' : ''">
                         <a th:href="@{|?page=${paging.number+1}|}">
                             <button class="join-item btn">»</button>
                         </a>

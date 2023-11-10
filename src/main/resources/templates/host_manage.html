@@ -2,11 +2,11 @@
 <html lang="en" layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
 <div layout:fragment="content-layout" class="host_content">
     <div class="tabs">
-        <input id="authorize" type="radio" name="tab_item" checked>
+        <input id="authorize" type="radio" name="tab_item" onclick="handleTabChange('authorize')">
         <label class="tab_item" for="authorize">권한관리</label>
-        <input id="category" type="radio" name="tab_item">
+        <input id="category" type="radio" name="tab_item" onclick="handleTabChange('category')">
         <label class="tab_item" for="category">카테고리관리</label>
-        <input id="design" type="radio" name="tab_item">
+        <input id="design" type="radio" name="tab_item" onclick="handleTabChange('design')">
         <label class="tab_item" for="design">Tab 3</label>
         <div class="usercontent" id="authorize_info">
             <form th:action="@{/host/manage/auto}" method="post" class="flex">
@@ -85,7 +85,7 @@
             </form>
         </div>
         <div class="category_info_array">
-            <h1 style="margin-top : 8%; margin-left : 130px; display: flex;">* 메인Category *</h1>
+            <h1 style="margin-top : 8%; margin-left : 350px; display: flex;">* 메인Category *</h1>
             <div class="category_info" id="category_info" style="margin-left : 30px;">
                 <form class="category_form">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -115,69 +115,62 @@
                     </table>
                 </form>
                 <input class="category_fun" type="submit" onclick="doAdd('.category_form')" value="추가">
-                <input class="category_fun" style="margin-left : -50px; margin-top : -26px;" type="submit"
+                <input class="category_fun" style="margin-left : 50px; margin-top : -26px;" type="submit"
                        onclick="doDelete('.category_form')" value="삭제">
-                <input class="category_fun" type="submit"
-                       style="margin-left : 0px; margin-top : -26px; width : 80px; padding-left : 12px;"
-                       onclick="doDetail('.category_form')" value="상세보기">
-            </div>
-            <div class="category_point">
-                <a> > </a>
-            </div>
-            <div class="detail_maincate">
-                <table>
-                    <thead>
-                    <tr style="padding-left : 5px;" class="category_head">
-                        <th style="padding-left : 55px;">MainCategory</th>
-                        <th style="padding-left : 55px;">SubCategory</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="subCategory : ${subcategories}">
-                        <td rowspan="${subcategories.size()}" th:text="${checkmain.maintitle}">
-                        </td>
-                        <td>
-                            <span th:text="${subCategory.subtitle}"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
     <script>
-        function doAdd(formClass){
-            var form = document.querySelector(formClass);
-            if (form) {
-                form.action = "/host/manage/addmain";
-                form.method = "post";
-                form.submit();
-            } else {
-                console.error("Form element is null");
-            }
-        }
 
-        function doDelete(formClass){
-            var form = document.querySelector(formClass);
-            if (form) {
-                form.action = "/host/manage/deletemain";
-                form.method = "post";
-                form.submit();
-            } else {
-                console.error("Form element is null");
-            }
-        }
+       document.addEventListener("DOMContentLoaded", function() {
+       var selectedTab = localStorage.getItem("selectedTab");
 
-        function doDetail(formClass){
-            var form = document.querySelector(formClass);
-            if (form) {
-                form.action = "/host/manage/detailmain";
-                form.method = "post";
-                form.submit();
-            } else {
-                console.error("Form element is null");
-            }
-        }
+           if (selectedTab) {
+               var tabElement = document.getElementById(selectedTab);
+               if (tabElement) {
+                   tabElement.checked = true;
+               }
+           }
+       });
+
+       function handleTabChange(tabId) {
+           localStorage.setItem("selectedTab", tabId);
+       }
+
+           function doAdd(formClass){
+               var form = document.querySelector(formClass);
+               if (form) {
+                   form.action = "/host/manage/addmain";
+                   form.method = "post";
+                   form.submit();
+               } else {
+                   console.error("Form element is null");
+               }
+       }
+
+       function doDelete(formClass){
+           var form = document.querySelector(formClass);
+           if (form) {
+               form.action = "/host/manage/deletemain";
+               form.method = "post";
+               form.submit();
+           } else {
+               console.error("Form element is null");
+           }
+       }
+
+       function doDetail(formClass){
+           var form = document.querySelector(formClass);
+           if (form) {
+               form.action = "/host/manage/detailmain";
+               form.method = "post";
+               form.submit();
+           } else {
+               console.error("Form element is null");
+           }
+       }
+
+
     </script>
 </div>
 </html>
