@@ -8,5 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory,Integer> {
+  List<SubCategory> findByMainCategoryId(Integer mainCategoryId);
 
 }

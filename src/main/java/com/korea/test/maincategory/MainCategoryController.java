@@ -8,6 +8,7 @@ import com.korea.test.post.PostRepository;
 import com.korea.test.post.PostService;
 import com.korea.test.subcategory.SubCategory;
 import com.korea.test.subcategory.SubCategoryRepository;
+import com.korea.test.subcategory.SubCategoryService;
 import com.korea.test.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,11 @@ public class MainCategoryController {
   @Autowired
   MainCategoryRepository mainCategoryRepository;
   @Autowired
+  MainCategoryService mainCategoryService;
+  @Autowired
   SubCategoryRepository subCategoryRepository;
+  @Autowired
+  SubCategoryService subCategoryService;
   @Autowired
   PostRepository postRepository;
   @Autowired
@@ -213,4 +218,61 @@ public class MainCategoryController {
     return "host_manage";
   }
 
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/host/manage/addmain")
+  public String addmaincatecotry(Model model){
+
+    this.mainCategoryService.addmain(null);
+
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
+    return "redirect:/host/manage";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/host/manage/deletemain")
+  public String deletemaincatecotry(Model model, @RequestParam Integer chk_info2){
+
+    this.mainCategoryService.deletemain(chk_info2);
+
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
+    return "redirect:/host/manage";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/host/manage/detailmain")
+  public String detailmaincatecotry(Model model, @RequestParam Integer chk_info2){
+
+    List<MainCategory> mainCategory = this.mainCategoryRepository.findAll();
+    model.addAttribute("mainCategory", mainCategory);
+
+    List<SubCategory> subCategory = this.subCategoryRepository.findAll();
+    model.addAttribute("subCategory", subCategory);
+
+    List<SiteUser> siteUsers = this.userRepository.findAll();
+    model.addAttribute("user", siteUsers);
+
+    MainCategory checkmaincategory =this.mainCategoryRepository.findById(chk_info2).get();
+    model.addAttribute("checkmain",checkmaincategory);
+
+    List<SubCategory> subCategories = this.subCategoryService.detail(chk_info2);
+    model.addAttribute("subcategories", subCategories);
+
+    return "host_manage";
+  }
 }

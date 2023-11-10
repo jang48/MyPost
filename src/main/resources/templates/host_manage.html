@@ -23,8 +23,7 @@
                         <tbody>
                         <tr th:each="users : ${user}">
                             <th style="padding-left : 15px;">
-                                <input class="checkbox" type="radio" name="chk_info" th:value="${users.id}"
-                                       style="background-color: lightgray;">
+                                <input class="checkbox" type="radio" name="chk_info" th:value="${users.id}">
                             </th>
                             <td>
                                 <span style="padding-left : 60px;" th:text="${users.username}"></span>
@@ -38,7 +37,7 @@
                     <input class="detail_btn" type="submit" value="상세보기">
                 </div>
             </form>
-            <a style="margin-top : 230px; margin-left : 150px;" > > </a>
+            <a style="margin-top : 230px; margin-left : 150px;"> > </a>
             <form th:action="@{/host/manage/updateauto}" method="post">
                 <h2 style="margin-top : 40%; margin-left : 110px; margin-bottom : 10px;">* 권한설정 *</h2>
                 <div class="userdetail">
@@ -65,9 +64,11 @@
                                         </option>
                                         <option value="first" th:selected="${userinfo.authorize == 'first'}"> first
                                         </option>
-                                        <option value="business" th:selected="${userinfo.authorize == 'business'}"> business
+                                        <option value="business" th:selected="${userinfo.authorize == 'business'}">
+                                            business
                                         </option>
-                                        <option value="economy" th:selected="${userinfo.authorize == 'economy'}"> economy
+                                        <option value="economy" th:selected="${userinfo.authorize == 'economy'}">
+                                            economy
                                         </option>
                                     </select>
                                 </label>
@@ -83,17 +84,100 @@
                 </div>
             </form>
         </div>
-        <div class="category_info" id="category_info" >
-            <div>
-                <h1 style="margin-top : 10%; margin-left : 110px; margin-bottom : 10px;">* 메인Category *</h1>
-                <ul th:each="maincategory : ${mainCategory}">
-                    <li th:text="${maincategory.maintitle}"></li>
-<!--                    <li style="maring-left : 30px;" th:each="subCategory : ${subCategory}">-->
-<!--                        <span th:text="${subCategory.subtitle}" th:if="${"></span>-->
-<!--                    </li>-->
-                </ul>
+        <div class="category_info_array">
+            <h1 style="margin-top : 8%; margin-left : 130px; display: flex;">* 메인Category *</h1>
+            <div class="category_info" id="category_info" style="margin-left : 30px;">
+                <form class="category_form">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <table class="category_table" style="overflow: auto;">
+                        <thead>
+                        <tr style="padding-left : 5px;" class="category_head">
+                            <th>Check</th>
+                            <th style="padding-left : 55px;">MainCategory</th>
+                            <th style="padding-left : 45px;">CreateDate</th>
+                        </tr>
+                        </thead>
+                        <tbody style="overflow : auto;">
+                        <tr th:each="maincategory : ${mainCategory}">
+                            <th style="padding-left : 15px;">
+                                <input class="checkbox" type="radio" name="chk_info2" th:value="${maincategory.id}"
+                                       style="background-color: lightgray;">
+                            </th>
+                            <td>
+                                <span style="padding-left : 65px;" th:text="${maincategory.maintitle}"></span>
+                            </td>
+                            <td>
+                                <span style="padding-left : 45px;"
+                                      th:text="${#temporals.format(maincategory.createDatetime, 'yyyy-MM-dd')}"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <input class="category_fun" type="submit" onclick="doAdd('.category_form')" value="추가">
+                <input class="category_fun" style="margin-left : -50px; margin-top : -26px;" type="submit"
+                       onclick="doDelete('.category_form')" value="삭제">
+                <input class="category_fun" type="submit"
+                       style="margin-left : 0px; margin-top : -26px; width : 80px; padding-left : 12px;"
+                       onclick="doDetail('.category_form')" value="상세보기">
+            </div>
+            <div class="category_point">
+                <a> > </a>
+            </div>
+            <div class="detail_maincate">
+                <table>
+                    <thead>
+                    <tr style="padding-left : 5px;" class="category_head">
+                        <th style="padding-left : 55px;">MainCategory</th>
+                        <th style="padding-left : 55px;">SubCategory</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="subCategory : ${subcategories}">
+                        <td rowspan="${subcategories.size()}" th:text="${checkmain.maintitle}">
+                        </td>
+                        <td>
+                            <span th:text="${subCategory.subtitle}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+    <script>
+        function doAdd(formClass){
+            var form = document.querySelector(formClass);
+            if (form) {
+                form.action = "/host/manage/addmain";
+                form.method = "post";
+                form.submit();
+            } else {
+                console.error("Form element is null");
+            }
+        }
+
+        function doDelete(formClass){
+            var form = document.querySelector(formClass);
+            if (form) {
+                form.action = "/host/manage/deletemain";
+                form.method = "post";
+                form.submit();
+            } else {
+                console.error("Form element is null");
+            }
+        }
+
+        function doDetail(formClass){
+            var form = document.querySelector(formClass);
+            if (form) {
+                form.action = "/host/manage/detailmain";
+                form.method = "post";
+                form.submit();
+            } else {
+                console.error("Form element is null");
+            }
+        }
+    </script>
 </div>
 </html>

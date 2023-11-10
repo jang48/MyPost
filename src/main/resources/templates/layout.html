@@ -14,7 +14,8 @@
 <div class = "wrap">
     <div class = "logo">
         <a class="logo_home" href = "/home">TRAVELLING WITH</a>
-        <li class="login_out">
+        <li class="login_out" >
+            <a class="host_page" th:href="@{/host/manage}" th:if="${authority == 'host'}" style="margin-right : 10px; color :  #979797; font-size : 13px;" >관리자페이지</a>
             <a class="log_name" sec:authorize="isAuthenticated()" th:text="${#authentication.getPrincipal().getUsername()}+'님 안녕하세요'"
                style="background: linear-gradient(to right, #A7A3FF,#FFA7A3, #671cc4, #5673bd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; font-size : 13px; margin-right : 10px;" > </a>
             <a class="nav-link" style="font-size : 13px;  margin-right : 10px;" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
@@ -37,7 +38,7 @@
 <!--                    </ul>-->
 <!--                </li>-->
 <!--            </ul>-->
-            <ul class="menu bg-base-200 w-30 rounded-box" style="height : 100%;">
+            <ul class="menu block rounded-box" style="height : 100%; width : 150px;">
                 <li th:each = "main : ${mainCategory}">
                     <details open>
                         <summary><span class = "mainlist" th:text=" ${main.maintitle}" ></span></summary>
